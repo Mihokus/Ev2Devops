@@ -2,7 +2,7 @@ name: CI/CD Innovatech Chile
 
 on:
   push:
-    branches: [ "main" ] 
+    branches: [ "main" ]
 
 jobs:
   build-and-push:
@@ -23,16 +23,23 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build y Push de Back-Ventas
+      - name: Build & Push Back-Ventas
         env:
           ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
         run: |
-          docker build -t $ECR_REGISTRY/back-ventas:latest ./back-Ventas_SpringBoot
+          docker build -t $ECR_REGISTRY/back-ventas:latest ./back-Ventas_SpringBoot/Springboot-API-REST
           docker push $ECR_REGISTRY/back-ventas:latest
 
-      - name: Build y Push de Back-Despachos
+      - name: Build & Push Back-Despachos
         env:
           ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
         run: |
-          docker build -t $ECR_REGISTRY/back-despachos:latest ./back-Despachos_SpringBoot
+          docker build -t $ECR_REGISTRY/back-despachos:latest ./back-Despachos_SpringBoot/Springboot-API-REST-DESPACHO
           docker push $ECR_REGISTRY/back-despachos:latest
+
+      - name: Build & Push Frontend
+        env:
+          ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+        run: |
+          docker build -t $ECR_REGISTRY/front-innovatech:latest ./front_despacho
+          docker push $ECR_REGISTRY/front-innovatech:latest
