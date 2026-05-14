@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  ventas:
+    image: back-ventas:v1
+    container_name: ventas
+    ports:
+      - "8081:8080"
+    environment:
+      - DB_ENDPOINT=10.0.145.79
+      - DB_PORT=3306
+      - DB_NAME=innovatech_db
+      - DB_USER=root
+      - DB_PASS=root
+    restart: always
+  despachos:
+    image: back-despachos:v1
+    container_name: despachos
+    ports:
+      - "8082:8080"
+    environment:
+      - DB_ENDPOINT=10.0.145.79
+      - DB_PORT=3306
+      - DB_NAME=innovatech_db
+      - DB_USER=root
+      - DB_PASS=root
+    restart: always
